@@ -9,7 +9,7 @@ public class Drink extends Goods {
         super(name, price);
         allDrink.add(this);
     }
-//    @Override
+
     public static List<Drink> getALlDrinks() {
         return allDrink;
     }
