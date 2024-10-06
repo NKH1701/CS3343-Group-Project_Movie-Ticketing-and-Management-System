@@ -23,3 +23,7 @@
 hs_err_pid*
 replay_pid*
 /bin/
+
+# intellij idea folders 
+.idea
+/Movie Ticketing and Management System.iml
