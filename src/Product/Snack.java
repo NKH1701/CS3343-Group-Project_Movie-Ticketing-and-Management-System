@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Objects;
 
 public class Snack implements Product {
-    private String name;
+    private final String name;
     private double price;
     private String portion;
     private static final List<Snack> allSnacks = new ArrayList<>();
