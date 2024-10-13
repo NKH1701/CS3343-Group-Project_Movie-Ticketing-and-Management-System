@@ -3,6 +3,7 @@ package Product;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 /**
  * Drink class that implements Product interface
@@ -84,19 +85,33 @@ public class Drink implements Product {
     }
 
     /**
+     * search for a drink by name
+     * @param name  name of the drink
+     * @return the drink if found, empty otherwise
+     */
+    public static Optional<Drink> searchDrink(String name) {
+        for (Drink drink : allDrink) {
+            if (drink.getName().equals(name)) {
+                return Optional.of(drink);
+            }
+        }
+        return Optional.empty();
+    }
+
+    /**
      * check if the drink is equal to another object
-     * @param o  object to compare
+     * @param object  object to compare
      * @return true if the drink is equal to the object, false otherwise
      */
     @Override
-    public boolean equals(Object o) {
-        if (this == o) {
+    public boolean equals(Object object) {
+        if (this == object) {
             return true;
         }
-        if (o == null || getClass() != o.getClass()) {
+        if (object == null || getClass() != object.getClass()) {
             return false;
         }
-        Drink drink = (Drink) o;
+        Drink drink = (Drink) object;
         return Double.compare(price, drink.price) == 0 && Objects.equals(name,
                 drink.name) && Objects.equals(portion, drink.portion);
     }
