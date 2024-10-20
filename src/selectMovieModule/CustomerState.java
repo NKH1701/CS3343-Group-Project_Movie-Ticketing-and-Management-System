@@ -1,4 +1,4 @@
-package jasperPackage;
+package selectMovieModule;
 
 public interface CustomerState{
 	public Boolean canViewClassIIIMovies();

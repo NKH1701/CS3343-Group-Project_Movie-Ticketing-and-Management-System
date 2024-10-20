@@ -1,4 +1,4 @@
-package jasperPackage;
+package selectMovieModule;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,6 +14,11 @@ public class Movie{
 	private String language;
 	private String subtitles;
 	private List<MovieSession> movieSessions;
+	
+	//default constructor, placeholder for testing purposes
+	public Movie() {
+		this("name", "genre", 0, 0, "class", "language", "subtitles");
+	}
 	
 	public Movie(String name, 
 				 String genre, 
@@ -31,9 +36,10 @@ public class Movie{
 		this.subtitles = subtitles;
 	}
 	
-	public void addMovieSession(MovieSession movieSession) {
+	public List<MovieSession> addMovieSession(MovieSession movieSession) {
         if (movieSessions == null) {movieSessions = new ArrayList<>();}
         movieSessions.add(movieSession);
+        return movieSessions;
 	}
 	
 	public String getName() {return name;}
@@ -115,5 +121,16 @@ public class Movie{
 			result.append(String.format("%2s)%1s", key, " ")).append(queriedOptions.get(key).getName()).append("\n");
 		}
 		return result.toString();
+	}
+	
+	@Override
+	public boolean equals(Object movie) {
+		return this.name == ((Movie)movie).getName() 
+				&& this.genre == ((Movie)movie).getGenre() 
+				&& this.duration == ((Movie)movie).getDuration() 
+				&& this.price == ((Movie)movie).getPrice() 
+				&& this.classification == ((Movie)movie).getClassification() 
+				&& this.language == ((Movie)movie).getLanguage() 
+				&& this.subtitles == ((Movie)movie).getSubtitles();
 	}
 }

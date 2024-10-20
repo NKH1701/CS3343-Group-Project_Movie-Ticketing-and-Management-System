@@ -1,4 +1,4 @@
-package jasperPackage;
+package selectMovieModule;
 
 import java.util.*;
 
@@ -28,7 +28,7 @@ public class Customer extends User{
 	public int getAge(){return age;}
     public CustomerState getState() {return state;}
 	
-	// test stub for children customer
+	// dummy for children customer
 	public static Customer getDummyChildrenCustomer() {
         try {
             return new Customer("testChildren", "password", 10);
@@ -37,7 +37,7 @@ public class Customer extends User{
         }
     }
 	
-	// test stub for adult customer
+	// dummy for adult customer
 	public static Customer getDummyAdultCustomer() {
         try {
             return new Customer("testAdult", "password", 20);
@@ -46,7 +46,7 @@ public class Customer extends User{
         }
     }
 	
-	// test stub for elderly customer
+	// dummy for elderly customer
 	public static Customer getDummyElderlyCustomer() {
         try {
             return new Customer("testElderly", "password", 70);

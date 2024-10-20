@@ -1,4 +1,4 @@
-package jasperPackage;
+package selectMovieModule;
 
 import java.util.List;
 
@@ -8,8 +8,13 @@ public class MovieSession {
 	House house;
 	SeatingPlan seats;
 	
-	//TODO: Constructor and methods
-	
+	public MovieSession(Movie movie) throws CustomException {
+		this.movie = movie;
+		this.showTime = new Time(0, 0);
+		this.house = new House();
+		this.seats = house.getNewSeatingPlanForNewMovieSession();
+	}
+		
 	public MovieSession(Movie movie, Time showTime, House house) {
 		this.movie = movie;
 		this.showTime = showTime;

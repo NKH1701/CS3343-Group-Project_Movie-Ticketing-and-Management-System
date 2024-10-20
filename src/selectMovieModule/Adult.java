@@ -1,4 +1,4 @@
-package jasperPackage;
+package selectMovieModule;
 
 public class Adult implements CustomerState{
 	private Adult() {}

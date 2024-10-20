@@ -1,4 +1,4 @@
-package jasperPackage;
+package selectMovieModule;
 
 import java.util.List;
 import java.util.Map;

@@ -1,4 +1,4 @@
-package jasperPackage;
+package selectMovieModule;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,9 +22,10 @@ public class CinemaDatabase{
 	public void setOpeningHours(Time openingHours) {this.openHours = openingHours;}
 	public void setClosingHours(Time closingHours) {this.closeHours = closingHours;}
 	
-	public void addMovie(Movie movie) {
+	public List<Movie> addMovie(Movie movie) {
 		if (movies == null) {movies = new ArrayList<Movie>();}
 		movies.add(movie);
+		return movies;
 	}
 
 	public void addHouse(House house) {
@@ -37,7 +38,7 @@ public class CinemaDatabase{
 		registeredUsers.add(user);
 	}
 	
-	public static void setUpDummyDB() {
+	public static void setUpDummyDB() throws CustomException {
 		CinemaDatabase db = CinemaDatabase.getInstance();
 		db.setOpeningHours(new Time(9, 0));
 		db.setClosingHours(new Time(24, 0));
@@ -48,6 +49,7 @@ public class CinemaDatabase{
 		db.addHouse(house2);
 		House house3 = new House("3", 8, 10);
 		db.addHouse(house3);
+
 		
 		Movie movie1 = new Movie("The Matrix", "Action", 120, 50, "IIB", "English", "Chinese");
 		Movie movie2 = new Movie("The Matrix Reloaded", "Action", 130, 50, "IIB", "English", "Chinese");
@@ -109,5 +111,13 @@ public class CinemaDatabase{
 		MovieSession session15 = new MovieSession(movie11, new Time(21, 0), house3);
 		movie11.addMovieSession(session15);
 
+	}
+	
+	public void resetDB() {
+		openHours = null;
+		closeHours = null;
+		houses = null;
+		movies = null;
+		registeredUsers = null;
 	}
 }

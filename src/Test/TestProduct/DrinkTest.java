@@ -1,4 +1,4 @@
-package TestProduct;
+package Test.TestProduct;
 
 import Product.Drink;
 

@@ -1,4 +1,4 @@
-package jasperPackage;
+package selectMovieModule;
 import java.util.List;
 
 public class House implements Cloneable{
@@ -7,15 +7,22 @@ public class House implements Cloneable{
 	private List<MovieSession> movieSessions;
 
 	
-//	private Map<Movie, SeatingPlan> movieSeatingPlan;
+	public House() throws CustomException {
+		this.defaultSeatingPlan = new SeatingPlan();
+		this.houseNumber = "houseNum";
+	}
 	
-	public House(String roomNumber, int rows, int columns) {
-		this.houseNumber = roomNumber;
+	public House(String roomNumber, int rows, int columns) throws CustomException {
 		this.defaultSeatingPlan = new SeatingPlan(rows, columns);
+		this.houseNumber = roomNumber;
 	}
 	
 	public SeatingPlan getNewSeatingPlanForNewMovieSession() {
-		return new SeatingPlan(defaultSeatingPlan.getRows(), defaultSeatingPlan.getColumns());
+		try {
+			return new SeatingPlan(defaultSeatingPlan.getRows(), defaultSeatingPlan.getColumns());
+		} catch (CustomException e) {
+			return null;
+		}
 	}
 
 	public String getHouseNumber() {
