@@ -33,7 +33,7 @@ public class CmdDoPayment implements Command{
         double discountedPrice = currentUser.getShoppingCart().getTotalPrice() * currentUser.getCategory().getDiscount();
         do{
             if (payments.isEmpty()){
-                System.out.println("[Remind] Sorry, you have failed all payment options. Exiting the payment menu.");
+                System.out.println("[Remind] Sorry, you have failed all payment options. Exiting the payment menu.\n");
                 // if payment failed, will release all seats and clear the shopping cart
                 List<MovieTicket> movieTickes = currentUser.getShoppingCart().getMovieTicketCart();
                 for (MovieTicket ticket: movieTickes){

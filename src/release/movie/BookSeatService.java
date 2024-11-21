@@ -1,6 +1,5 @@
 package release.movie;
 
-import release.exception.CustomException;
 import release.exception.ExInvalidSeat;
 
 import java.util.List;

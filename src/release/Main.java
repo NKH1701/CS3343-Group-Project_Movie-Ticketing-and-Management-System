@@ -1,6 +1,7 @@
 package release;
 
 import release.database.DefaultData;
+import release.exception.ExInvalidOption;
 import release.user.UserCenter;
 
 import java.util.Scanner;
@@ -61,6 +62,8 @@ public class Main {
                 // Exit the system based on input
                 if (input.equals("exit") || input.equals("0"))
                     break;
+            } catch(NumberFormatException e){   //To handle beyond Integer.MAX_VALUE and Integer.MIN_VALUE
+                System.out.println(new ExInvalidOption().getMessage() + "\n");
             } catch (Exception e) {
                 System.out.println(e.getMessage() + "\n");
             }

@@ -2,7 +2,7 @@ package release.movie;
 import java.util.ArrayList;
 import java.util.List;
 
-import release.exception.CustomException;
+import release.exception.ExInvalidSeatingPlan;
 
 public class House implements Comparable<House>{
 	private int houseNumber;
@@ -10,12 +10,12 @@ public class House implements Comparable<House>{
 	private List<MovieSession> movieSessions;
 
 	
-	public House() throws CustomException {
+	public House() throws ExInvalidSeatingPlan {
 		this.defaultSeatingPlan = new SeatingPlan();
 		this.houseNumber = 0;
 	}
 	
-	public House(int roomNumber, int rows, int columns) throws CustomException {
+	public House(int roomNumber, int rows, int columns) throws ExInvalidSeatingPlan {
 		this.defaultSeatingPlan = new SeatingPlan(rows, columns);
 		this.houseNumber = roomNumber;
 	}
@@ -23,7 +23,7 @@ public class House implements Comparable<House>{
 	public SeatingPlan getNewSeatingPlanForNewMovieSession() {
 		try {
 			return new SeatingPlan(defaultSeatingPlan.getRows(), defaultSeatingPlan.getColumns());
-		} catch (CustomException e) {
+		} catch (ExInvalidSeatingPlan e) {
 			return null;
 		}
 	}

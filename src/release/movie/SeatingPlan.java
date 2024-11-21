@@ -3,7 +3,7 @@ package release.movie;
 import java.util.ArrayList;
 import java.util.List;
 
-import release.exception.CustomException;
+import release.exception.ExInvalidSeatingPlan;
 
 public class SeatingPlan{
 	private final List<List<String>> seatingPlan = new ArrayList<>();
@@ -19,14 +19,14 @@ public class SeatingPlan{
 		return rows >= 5 && rows <= 20 && columns >= 5 && columns <= 20;
 	}
 
-	public SeatingPlan() throws CustomException {
+	public SeatingPlan() throws ExInvalidSeatingPlan {
 		// default seating plan
 		this(10, 10);
 	}
 
-	public SeatingPlan(int rows, int columns) throws CustomException {
+	public SeatingPlan(int rows, int columns) throws ExInvalidSeatingPlan {
 		if (!validateConstructorParameters(rows, columns)) {
-			throw new CustomException(
+			throw new ExInvalidSeatingPlan(
 					"Invalid seating plan size. The seating plan size should be between 5 x 5 and 20 x 20.");
 		}
 		this.rows = rows;

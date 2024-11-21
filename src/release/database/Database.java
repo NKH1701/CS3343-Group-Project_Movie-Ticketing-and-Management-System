@@ -4,7 +4,6 @@ import java.util.*;
 
 import release.movie.House;
 import release.movie.Movie;
-import release.product.Product;
 import release.product.ProductWithPortion;
 import release.user.Admin;
 import release.user.Member;
@@ -162,6 +161,20 @@ public class Database {
 
     public void addProduct(ProductWithPortion product) {
         products.add(product);
+    }
+
+    // newly added for writing Junit test cases
+    public void resetDB() {
+        openHours = null;
+        closeHours = null;
+        houses.clear();
+        movies.clear();
+        products.clear();
+        users.clear();
+        memberIdSet.clear();
+        adminIdSet.clear();
+        smallestAvailMemberId = 0;
+        smallestAvailAdminId = 0;
     }
     
 }

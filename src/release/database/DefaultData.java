@@ -1,6 +1,6 @@
 package release.database;
 
-import release.exception.CustomException;
+import release.exception.ExInvalidSeatingPlan;
 import release.externalAPI.ExternalAPI;
 import release.externalAPI.OctopusAPI;
 import release.movie.House;
@@ -57,7 +57,7 @@ public class DefaultData {
             houses.add(new House(3, 10, 11));
             houses.add(new House(4, 8, 10));
             houses.add(new House(5, 6, 10));
-        }catch(CustomException e) {}
+        }catch(ExInvalidSeatingPlan e) {}
         db.setOpeningHours(openHours);
         db.setClosingHours(closeHours);
         db.setHouses(houses);

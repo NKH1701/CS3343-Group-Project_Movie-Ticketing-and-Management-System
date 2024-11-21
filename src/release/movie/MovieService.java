@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import release.database.Database;
-import release.exception.CustomException;
+import release.exception.ExInvalidSeatingPlan;
 import release.exception.ExInvalidOption;
 import release.exception.ExInvalidSearch;
 import release.exception.ExNoMovieToShow;
@@ -96,7 +96,7 @@ public class MovieService {
 	 * @param movieSessions the movie sessions
 	 * @param selected the selected
 	 * @return the selected movie session
-	 * @throws CustomException the custom exception
+	 * @throws ExInvalidSeatingPlan the custom exception
 	 */
 	public MovieSession getSelectedMovieSession(Map<Integer, MovieSession> movieSessions, int selected)
 			throws ExInvalidOption {
@@ -120,7 +120,7 @@ public class MovieService {
 	public Map<Integer, MovieSession> getAllMovieSessions() throws ExNoMovieToShow {
 		List<Movie> movies = db.getMovies();
 		Map<Integer, MovieSession> results = new LinkedHashMap<>();
-//		if(movies.isEmpty()) throw new CustomException("There are no movie sessions to show.");
+//		if(movies.isEmpty()) throw new ExInvalidSeatingPlan("There are no movie sessions to show.");
 		int count = 0;
 		for (Movie movie: movies){
 			List<MovieSession> moviesSessions = movie.getMovieSessionList();
@@ -151,15 +151,15 @@ public class MovieService {
 	 //	 * @param movies the movies
 	 //	 * @param selected the selected
 	 //	 * @return the selected movie
-	 //	 * @throws CustomException the custom exception
+	 //	 * @throws ExInvalidSeatingPlan the custom exception
 	 //	 */
-//	public Movie getSelectedMovie(Map<Integer, Movie> movies, int selected, User user) throws CustomException {
+//	public Movie getSelectedMovie(Map<Integer, Movie> movies, int selected, User user) throws ExInvalidSeatingPlan {
 //		if (!movies.containsKey(selected)) {
-//			throw new CustomException("[Exception] Invalid movie selection.");
+//			throw new ExInvalidSeatingPlan("[Exception] Invalid movie selection.");
 //		}
 //		Movie movie = movies.get(selected);
 //		if (movie.getClassification().equals("III") && user.getAge() < 18){
-//			throw new CustomException("You are not allowed to watch class III movies.");
+//			throw new ExInvalidSeatingPlan("You are not allowed to watch class III movies.");
 //		}
 //		return movie;
 //	}
@@ -169,12 +169,12 @@ public class MovieService {
 	 *
 	 * @param movie the movie
 	 * @return the movie sessions
-	 * @throws CustomException the custom exception
+	 * @throws ExInvalidSeatingPlan the custom exception
 	 */
-//	public Map<Integer, MovieSession> getMovieSessions(Movie movie) throws CustomException{
+//	public Map<Integer, MovieSession> getMovieSessions(Movie movie) throws ExInvalidSeatingPlan{
 //		List<MovieSession> movieSessions = movie.getMovieSessionList();
 //		if(movieSessions == null || movieSessions.isEmpty()) {
-//			throw new CustomException("No movie sessions available for this movie.");
+//			throw new ExInvalidSeatingPlan("No movie sessions available for this movie.");
 //		}
 //		Map<Integer, MovieSession> results = new LinkedHashMap<Integer, MovieSession>();
 //		int count = 0;

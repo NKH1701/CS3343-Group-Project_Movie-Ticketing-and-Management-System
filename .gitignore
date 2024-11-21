@@ -21,8 +21,12 @@
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
 replay_pid*
-/bin/
+bin/
+
 
 # intellij idea folders 
 .idea
-/Movie Ticketing and Management System.iml
+src/Movie Ticketing and Management System.iml
+src/out/
+
+Visual Paradigm/

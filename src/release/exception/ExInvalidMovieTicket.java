@@ -1,11 +1,11 @@
 package release.exception;
 
 /**
- * ExInvalidMovieTicket class
+ * InvalidMovieTicketException class
  * It is used to represent the exception when the movie ticket is invalid
  */
 public class ExInvalidMovieTicket extends Exception {
   public ExInvalidMovieTicket() {
-        super("[Exception] Invalid movie ticket");
+        super("Invalid movie ticket");
     }
 }

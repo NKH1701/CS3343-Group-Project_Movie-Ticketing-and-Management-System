@@ -35,9 +35,9 @@ public class MovieSession implements Comparable<MovieSession>{
         return Integer.compare(thisStartTime, otherStartTime);
     }
 	
-	public String displayBasicInfo() {
-		return "House: " + house.getHouseNumber() + ", Start Time: " + startTime + ", End Time: " + endTime;
-	}
+//	public String displayBasicInfo() {
+//		return "House: " + house.getHouseNumber() + ", Start Time: " + startTime + ", End Time: " + endTime;
+//	}
 	
 	@Override
 	public String toString() {

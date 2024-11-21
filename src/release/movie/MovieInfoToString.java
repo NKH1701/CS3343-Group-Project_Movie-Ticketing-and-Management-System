@@ -1,6 +1,6 @@
 package release.movie;
 
-import release.exception.CustomException;
+import release.exception.ExInvalidSeatingPlan;
 import release.exception.ExNoMovieToShow;
 
 import java.util.List;
@@ -201,11 +201,11 @@ public class MovieInfoToString {
 	 *
 	 * @param movieSessions the movie sessions
 	 * @return the string
-	 * @throws CustomException the custom exception
+	 * @throws ExInvalidSeatingPlan the custom exception
 	 */
-//	public static String showMovieSessions(Map<Integer, MovieSession> movieSessions) throws CustomException {
+//	public static String showMovieSessions(Map<Integer, MovieSession> movieSessions) throws ExInvalidSeatingPlan {
 //		if (movieSessions.isEmpty()) {
-//			throw new CustomException("No movie sessions available.");
+//			throw new ExInvalidSeatingPlan("No movie sessions available.");
 //		}
 //		StringBuilder result = new StringBuilder("The following sessions of \"")
 //									.append(movieSessions.get(1).getMovie().getName())
