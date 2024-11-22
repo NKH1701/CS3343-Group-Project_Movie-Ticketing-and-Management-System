@@ -1,5 +1,6 @@
 package release.movie;
 
+import release.exception.ExInvalidSeatingPlan;
 import release.helper.Time;
 
 public class MovieSession implements Comparable<MovieSession>{

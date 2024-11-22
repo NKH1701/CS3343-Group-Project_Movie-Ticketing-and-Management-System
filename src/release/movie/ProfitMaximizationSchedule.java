@@ -13,7 +13,7 @@ public class ProfitMaximizationSchedule extends Schedule {
 	}
 	
 	public void scheduling() throws ExNoMovieToSchedule {
-		List<Movie> movies = db.getMovies();
+		List<Movie> movies = this.getMovies();
 		List<House> houses = db.getHouses();
 
 		if (movies.isEmpty()) throw new ExNoMovieToSchedule();
