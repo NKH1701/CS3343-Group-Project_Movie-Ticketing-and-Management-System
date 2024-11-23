@@ -46,8 +46,8 @@ public class Snack implements ProductWithPortion {
             return false;
         }
         Snack snack = (Snack) object;
-        return Double.compare(price, snack.price) == 0 && Objects.equals(name,
-                snack.name) && Objects.equals(portion, snack.portion);
+        return Double.compare(price, snack.price) == 0 && Objects.equals(name, snack.name) && Objects.equals(portion,
+                snack.portion);
     }
 
 
@@ -111,7 +111,7 @@ public class Snack implements ProductWithPortion {
     public double getPrice() {
         return price;
     }
-    
+
 
     /**
      * search for a snack by name
@@ -134,10 +134,10 @@ public class Snack implements ProductWithPortion {
         return "Name: " + name + ", Portion: " + portion + ", Price: " + price;
     }
 
-    public String formattedToString(){
+    public String formattedToString() {
         // name portion price
         StringBuilder results = new StringBuilder(String.format("%-20s%2s", name, " "))
-                .append(String.format("%-5%2s", portion, " "))
+                .append(String.format("%-5s%2s", portion, " "))
                 .append(String.format("$%-4.1f%1s", price, " "));
         return results.toString();
     }

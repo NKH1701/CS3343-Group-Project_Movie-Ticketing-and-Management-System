@@ -6,6 +6,6 @@ package release.exception;
  */
 public class ExInvalidMovieTicket extends Exception {
   public ExInvalidMovieTicket() {
-        super("Invalid movie ticket");
+        super("[Exception] Invalid movie ticket");
     }
 }
