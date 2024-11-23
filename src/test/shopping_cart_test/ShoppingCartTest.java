@@ -1,19 +1,19 @@
 package test.shopping_cart_test;
 
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import release.exception.ExInvalidMovieTicket;
 import release.exception.ExInvalidSeatingPlan;
+import release.exception.ExProductNotFound;
+import release.movie.House;
+import release.movie.Movie;
+import release.movie.MovieSession;
 import release.product.Drink;
 import release.product.MovieTicket;
 import release.product.Product;
 import release.product.Snack;
-import release.exception.ExInvalidMovieTicket;
-import release.exception.ExProductNotFound;
 import release.shoppingCart.ShoppingCart;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import release.movie.House;
-import release.movie.Movie;
-import release.movie.MovieSession;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -27,8 +27,8 @@ public class ShoppingCartTest {
     ShoppingCart shoppingCart;
     HashMap<Product, Integer> productCart;
     List<MovieTicket> movieTicketCart;
-    Product testSnack;
-    Product testDrink;
+    Snack testSnack;
+    Drink testDrink;
     Movie testMovie1;
     MovieTicket movieTicket;
     MovieSession movieSession;
@@ -39,7 +39,7 @@ public class ShoppingCartTest {
      * @throws ExInvalidSeatingPlan if there is an error when creating the movie session
      */
     @BeforeEach
-    void setUp() throws  ExInvalidSeatingPlan {
+    void setUp() throws ExInvalidSeatingPlan {
         testSnack = new Snack("snack1", 10, "100g");
         testDrink = new Drink("drink2", 20, "500ml");
         Map<Product, Integer> productMap = Map.of(
@@ -128,7 +128,7 @@ public class ShoppingCartTest {
         Assertions.assertEquals("[Exception] Invalid movie ticket", exception.getMessage());
     }
 
-  
+
     /**
      * Test addProduct method of ShoppingCart class with quantity
      */
@@ -199,7 +199,7 @@ public class ShoppingCartTest {
         Product product = new Snack("snack3", 30, "200g");
         String massage = "[Exception] Product snack3 not found";
         Exception exception = Assertions.assertThrows(
-                ExProductNotFound.class,()-> shoppingCart.removeFromProductCart(product, 1));
+                ExProductNotFound.class, () -> shoppingCart.removeFromProductCart(product, 1));
         Assertions.assertEquals(massage, exception.getMessage());
     }
 
@@ -229,7 +229,8 @@ public class ShoppingCartTest {
     @Test
     void testRemoveMovieTicket_MovieTicketNotExists() {
         MovieTicket movieTicketNotExists = new MovieTicket(testMovie1, movieSession, "A2");
-        Exception exception =  Assertions.assertThrows(ExProductNotFound.class,()-> shoppingCart.removeMovieTicket(movieTicketNotExists));
+        Exception exception = Assertions.assertThrows(ExProductNotFound.class,
+                () -> shoppingCart.removeMovieTicket(movieTicketNotExists));
         Assertions.assertEquals("[Exception] Movie ticket not found", exception.getMessage());
     }
 
@@ -244,4 +245,38 @@ public class ShoppingCartTest {
         Assertions.assertEquals(expectPrice, totalPrice);
     }
 
+    /**
+     * Test formatted toString method of ShoppingCart class
+     */
+    @Test
+    void testFormattedToString() {
+        final int lineSeparator = 73;
+        String expected = String.format("%4s%-32s%-8s%-8s%-8s%-7s%-6s\n%s\n", " ", "Movie Name", "House", "Start",
+                "End", "Seat",
+                "Price", "-".repeat(lineSeparator));
+        String formattedMovieTicket = String.format("%2d) %-30s%2s%2s%-6d%-8s%-8s%-7s$%-5.1f\n%s\n", 1,
+                testMovie1.getName(), " ",
+                " ", movieSession.getHouse().getHouseNumber(), movieSession.getStartTime(), movieSession.getEndTime(),
+                movieTicket.getSeat(),
+                movieTicket.getPrice(), "-".repeat(lineSeparator));
+        String snackTitle = String.format("\n%4s%-32s%-16s%-15s%-6s\n%s\n", " ", "Snacks/Drinks",
+                "Portion", "Quantity", "Price", "-".repeat(lineSeparator));
+        String formattedSnack = String.format("%2d) %-30s%2s%-16s%3d%12s$%-4.1f\n", 1, testSnack.getName(), " ",
+                (testSnack).getPortion(), 1, " ",
+                testSnack.getPrice());
+        String formattedDrink = String.format("%2d) %-30s%2s%-16s%3d%12s$%-4.1f\n%s\n", 2, testDrink.getName(),
+                " ", testDrink.getPortion(), 1, " ", (testDrink).getPrice(),
+                "-".repeat(lineSeparator));
+        expected += formattedMovieTicket + snackTitle + formattedSnack + formattedDrink;
+        Assertions.assertEquals(expected, shoppingCart.formattedToString());
+    }
+
+    /**
+     * Test formatted toString method of ShoppingCart class when there is nothing in the cart
+     */
+    @Test
+    void testFormattedToString_Nothing() {
+        shoppingCart.clearAllCart();
+        Assertions.assertEquals("", shoppingCart.formattedToString());
+    }
 }
