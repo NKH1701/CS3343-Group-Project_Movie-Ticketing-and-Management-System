@@ -93,7 +93,7 @@ public class SnackTest {
     @Test
     public void testEquals_Null() {
         Assertions.assertFalse(snack1.equals(null));
-        Assertions.assertNotEquals(snack1.hashCode(), 0);
+        Assertions.assertNotEquals(0, snack1.hashCode());
     }
     
     /**

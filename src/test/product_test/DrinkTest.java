@@ -164,7 +164,7 @@ public class DrinkTest {
     void testEquals_Null() {
         Drink drink1 = testdrinkList.getFirst();
         Assertions.assertFalse(drink1.equals(null));
-        Assertions.assertNotEquals(drink1.hashCode(), 0);
+        Assertions.assertNotEquals(0, drink1.hashCode());
     }
 
     /**

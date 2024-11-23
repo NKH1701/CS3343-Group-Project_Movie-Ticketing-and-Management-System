@@ -210,7 +210,7 @@ public class ShoppingCartTest {
     void testRemoveProduct_NoMoreProduct() throws ExProductNotFound {
         int quantity = shoppingCart.removeFromProductCart(testSnack, 1);
         Assertions.assertEquals(1, quantity);
-        Assertions.assertEquals(null, shoppingCart.getProductCart().get(testSnack));
+        Assertions.assertNull(shoppingCart.getProductCart().get(testSnack));
     }
 
     /**

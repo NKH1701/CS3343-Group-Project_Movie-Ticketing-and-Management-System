@@ -26,14 +26,14 @@ public class ShoppingCart {
 
     /**
      * Constructor for ShoppingCart class,
-     * which the Cart is initialized with the hashmap of products and list of movie ticket passed into the constructor
+     * which the Cart is initialized by cloning the hashmap of products and list of movie ticket passed into the constructor
      *
      * @param productCart     : products in the shopping cart
      * @param movieTicketCart : movies tickets in the shopping cart
      */
     public ShoppingCart(Map<Product, Integer> productCart, List<MovieTicket> movieTicketCart) {
-        this.productCart = productCart;
-        this.movieTicketCart = movieTicketCart;
+        this.productCart = new HashMap<>(productCart);
+        this.movieTicketCart = new ArrayList<>(movieTicketCart);
     }
 
     /**

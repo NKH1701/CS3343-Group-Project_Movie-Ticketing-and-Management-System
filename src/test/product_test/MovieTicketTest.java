@@ -35,7 +35,7 @@ public class MovieTicketTest {
      */
     @Test
     void testGetName() {
-        Assertions.assertEquals(movieTicket.getName(), "test_movie");
+        Assertions.assertEquals("test_movie", movieTicket.getName());
     }
 
     /**
@@ -44,7 +44,7 @@ public class MovieTicketTest {
      */
     @Test
     void testGetPrice() {
-        Assertions.assertEquals(movieTicket.getPrice(), 999);
+        Assertions.assertEquals(999, movieTicket.getPrice());
     }
 
     /**
@@ -71,7 +71,7 @@ public class MovieTicketTest {
      */
     @Test
     void testGetSeat() {
-        Assertions.assertEquals(movieTicket.getSeat(), "A1");
+        Assertions.assertEquals("A1", movieTicket.getSeat());
     }
 
     /**
@@ -101,7 +101,7 @@ public class MovieTicketTest {
     @Test
     void testEquals() {
         MovieTicket movieTicket1 = new MovieTicket(movie, movieSession, "A1");
-        Assertions.assertEquals(movieTicket, movieTicket1);
+        Assertions.assertTrue(movieTicket.equals(movieTicket1));
     }
 
     /**
@@ -110,7 +110,7 @@ public class MovieTicketTest {
      */
     @Test
     void testEquals_sameObject() {
-        Assertions.assertEquals(movieTicket, movieTicket);
+        Assertions.assertTrue(movieTicket.equals(movieTicket));
     }
 
     /**
@@ -119,7 +119,7 @@ public class MovieTicketTest {
      */
     @Test
     void testEquals_Null() {
-        Assertions.assertNotEquals(movieTicket, null);
+        Assertions.assertFalse(movieTicket.equals(null));
     }
 
     /**
@@ -128,7 +128,8 @@ public class MovieTicketTest {
      */
     @Test
     void testEquals_differentClass() {
-        Assertions.assertFalse(movieTicket.equals(movie));
+        Object notMovieTicket = new Object();
+        Assertions.assertFalse(movieTicket.equals(notMovieTicket));
     }
 
     /**
@@ -139,7 +140,7 @@ public class MovieTicketTest {
     void testEquals_differentMovie() {
         Movie movie1 = new Movie("test_movie1", "testing", 999, 999, 10, "I", "English", "English");
         MovieTicket movieTicket1 = new MovieTicket(movie1, movieSession, "A1");
-        Assertions.assertNotEquals(movieTicket, movieTicket1);
+        Assertions.assertFalse(movieTicket.equals(movieTicket1));
     }
 
     /**
@@ -150,7 +151,7 @@ public class MovieTicketTest {
     void testEquals_differentMovieSession() throws ExInvalidSeatingPlan {
         MovieSession movieSession1 = new MovieSession(movie, "11:00", "12:00", new House());
         MovieTicket movieTicket1 = new MovieTicket(movie, movieSession1, "A1");
-        Assertions.assertNotEquals(movieTicket, movieTicket1);
+        Assertions.assertFalse(movieTicket.equals(movieTicket1));
     }
 
     /**
@@ -160,6 +161,6 @@ public class MovieTicketTest {
     @Test
     void testEquals_differentSeat() {
         MovieTicket movieTicket1 = new MovieTicket(movie, movieSession, "A2");
-        Assertions.assertNotEquals(movieTicket, movieTicket1);
+        Assertions.assertFalse(movieTicket.equals(movieTicket1));
     }
 }
