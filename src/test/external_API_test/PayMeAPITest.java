@@ -1,11 +1,11 @@
 package test.external_API_test;
 
-import release.externalAPI.ExternalAPI;
-import release.externalAPI.PayMeAPI;
-import release.externalAPI.PayMeAPIFactory;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import release.externalAPI.ExternalAPI;
+import release.externalAPI.PayMeAPI;
+import release.externalAPI.PayMeAPIFactory;
 
 import java.util.Random;
 
@@ -35,7 +35,7 @@ public class PayMeAPITest {
     public void testGetExternalAPI() {
         ExternalAPI externalAPI = payMeAPIFactory.getExternalAPI();
         Assertions.assertNotNull(externalAPI);
-        Assertions.assertTrue(externalAPI instanceof PayMeAPI);
+        Assertions.assertInstanceOf(PayMeAPI.class, externalAPI);
     }
 
     /**
@@ -46,7 +46,7 @@ public class PayMeAPITest {
     public void testGetExternalAPI_Random() {
         ExternalAPI externalAPI = payMeAPIFactory.getExternalAPI(random);
         Assertions.assertNotNull(externalAPI);
-        Assertions.assertTrue(externalAPI instanceof PayMeAPI);
+        Assertions.assertInstanceOf(PayMeAPI.class, externalAPI);
     }
 
     /**
@@ -55,12 +55,12 @@ public class PayMeAPITest {
      * The random object should be generated inside the method, and the method should not throw NullPointerException
      */
     @Test
-    public void testGetExternalAPI_Null_Random() {
+    public void testGetExternalAPI_Random_Null() {
         ExternalAPI externalAPI = payMeAPIFactory.getExternalAPI(null);
         // Test if there is no NullPointerException
         Assertions.assertDoesNotThrow(() -> externalAPI.doPayment(1));
         Assertions.assertNotNull(externalAPI);
-        Assertions.assertTrue(externalAPI instanceof PayMeAPI);
+        Assertions.assertInstanceOf(PayMeAPI.class, externalAPI);
     }
 
     /**

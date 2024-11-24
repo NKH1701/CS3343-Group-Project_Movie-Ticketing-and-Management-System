@@ -34,7 +34,7 @@ public class DrinkTest {
         Field field = Drink.class.getDeclaredField("allDrink");
         field.setAccessible(true);
         Object fieldValue = field.get(Drink.class);
-        if (fieldValue instanceof List){
+        if (fieldValue instanceof List) {
             ((List<?>) fieldValue).clear();
         }
         testdrinkList.clear();

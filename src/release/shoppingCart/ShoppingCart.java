@@ -5,9 +5,11 @@ import release.exception.ExInvalidMovieTicket;
 import release.exception.ExProductNotFound;
 import release.product.MovieTicket;
 import release.product.Product;
-import release.product.ProductWithPortion;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * ShoppingCart class that contains all products in the shopping cart
@@ -188,7 +190,7 @@ public class ShoppingCart {
      *
      * @return the formatted string of the shopping cart
      */
-    public String formattedToString(){
+    public String formattedToString() {
         return MovieTicket.formatMovieTicketList(movieTicketCart) +
                 Product.formatProductMap(productCart);
     }

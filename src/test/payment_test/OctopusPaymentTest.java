@@ -35,7 +35,7 @@ public class OctopusPaymentTest {
     @Test
     public void testOctopusPaymentFactory() {
         Payment payment = octopusPaymentFactory.createPaymentMethod();
-        Assertions.assertTrue(payment instanceof OctopusPayment);
+        Assertions.assertInstanceOf(OctopusPayment.class, payment);
     }
 
     /**
@@ -46,7 +46,7 @@ public class OctopusPaymentTest {
     public void testOctopusPaymentFactory_ExternalAPI() {
         ExternalAPI octopusAPI = octopusAPIFactory.getExternalAPI(new Random(10));
         Payment payment = octopusPaymentFactory.createPaymentMethod(octopusAPI);
-        Assertions.assertTrue(payment instanceof OctopusPayment);
+        Assertions.assertInstanceOf(OctopusPayment.class, payment);
     }
 
     /**
@@ -59,7 +59,7 @@ public class OctopusPaymentTest {
         Payment payment = octopusPaymentFactory.createPaymentMethod(null);
         // Test if there is no NullPointerException
         Assertions.assertDoesNotThrow(() -> payment.doPayment(1));
-        Assertions.assertTrue(payment instanceof OctopusPayment);
+        Assertions.assertInstanceOf(OctopusPayment.class, payment);
     }
 
     /**
@@ -105,6 +105,6 @@ public class OctopusPaymentTest {
     @Test
     public void testOctopusGetPaymentStatus() {
         Payment octopusPayment = octopusPaymentFactory.createPaymentMethod();
-        Assertions.assertEquals(octopusPayment.getPaymentStatus(), PaymentStatus.NOT_PROCEED);
+        Assertions.assertEquals(PaymentStatus.NOT_PROCEED, octopusPayment.getPaymentStatus());
     }
 }

@@ -181,7 +181,7 @@ public class MovieTicketTest {
         String expected = movieTitle + formattedMovieTicket;
         Assertions.assertEquals(expected, MovieTicket.formatMovieTicketList(List.of(movieTicket)));
     }
-    
+
     /**
      * The test for the formatMovieTicket method<br>
      * Check if the method returns an empty string when the list is empty
@@ -190,7 +190,7 @@ public class MovieTicketTest {
     void testFormatMovieTicketList_Empty() {
         Assertions.assertEquals("", MovieTicket.formatMovieTicketList(List.of()));
     }
-    
+
     /**
      * The test for the formatMovieTicket method<br>
      * Check if the method returns an empty string when the list is null

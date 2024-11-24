@@ -32,7 +32,7 @@ public class AlipayPaymentTest {
     @Test
     public void testAlipayPaymentFactory() {
         Payment payment = alipayPaymentFactory.createPaymentMethod();
-        Assertions.assertTrue(payment instanceof AlipayPayment);
+        Assertions.assertInstanceOf(AlipayPayment.class, payment);
     }
 
     /**
@@ -42,7 +42,7 @@ public class AlipayPaymentTest {
     public void testAlipayPaymentFactory_ExternalAPI() {
         ExternalAPI alipayAPI = alipayAPIFactory.getExternalAPI();
         Payment payment = alipayPaymentFactory.createPaymentMethod(alipayAPI);
-        Assertions.assertTrue(payment instanceof AlipayPayment);
+        Assertions.assertInstanceOf(AlipayPayment.class, payment);
     }
 
     /**
@@ -54,7 +54,7 @@ public class AlipayPaymentTest {
         Payment payment = alipayPaymentFactory.createPaymentMethod(null);
         // Test if there is no NullPointerException
         Assertions.assertDoesNotThrow(() -> payment.doPayment(1));
-        Assertions.assertTrue(payment instanceof AlipayPayment);
+        Assertions.assertInstanceOf(AlipayPayment.class, payment);
     }
 
     /**

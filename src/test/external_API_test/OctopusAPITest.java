@@ -1,11 +1,11 @@
 package test.external_API_test;
 
-import release.externalAPI.ExternalAPI;
-import release.externalAPI.OctopusAPI;
-import release.externalAPI.OctopusAPIFactory;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import release.externalAPI.ExternalAPI;
+import release.externalAPI.OctopusAPI;
+import release.externalAPI.OctopusAPIFactory;
 
 import java.util.Random;
 
@@ -35,7 +35,7 @@ public class OctopusAPITest {
     @Test
     public void testOctopusFactory() {
         ExternalAPI octopusAPI = octopusAPIFactory.getExternalAPI();
-        Assertions.assertTrue(octopusAPI instanceof OctopusAPI);
+        Assertions.assertInstanceOf(OctopusAPI.class, octopusAPI);
     }
 
     /**
@@ -45,7 +45,7 @@ public class OctopusAPITest {
     @Test
     public void testOctopusFactory_Random() {
         ExternalAPI octopusAPI = octopusAPIFactory.getExternalAPI(random);
-        Assertions.assertTrue(octopusAPI instanceof OctopusAPI);
+        Assertions.assertInstanceOf(OctopusAPI.class, octopusAPI);
     }
 
     /**
@@ -59,7 +59,7 @@ public class OctopusAPITest {
         Assertions.assertDoesNotThrow(() -> externalAPI.doPayment(1));
         // Test if there is no NullPointerException
         externalAPI.doPayment(1);
-        Assertions.assertTrue(externalAPI instanceof OctopusAPI);
+        Assertions.assertInstanceOf(OctopusAPI.class, externalAPI);
     }
 
     /**

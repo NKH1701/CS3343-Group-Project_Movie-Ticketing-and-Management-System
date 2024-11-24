@@ -56,7 +56,7 @@ public class ProductTest {
     void testFormatProductMapEmpty() {
         Assertions.assertEquals("", Product.formatProductMap(new HashMap<>()));
     }
-    
+
     @Test
     void testFormatProductMapNull() {
         Assertions.assertEquals("", Product.formatProductMap(null));

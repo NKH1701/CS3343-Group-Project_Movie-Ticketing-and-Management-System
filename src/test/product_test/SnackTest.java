@@ -1,11 +1,11 @@
 package test.product_test;
 
 import org.junit.jupiter.api.AfterEach;
-import release.product.Snack;
-import release.exception.ExProductNotFound;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import release.exception.ExProductNotFound;
+import release.product.Snack;
 
 import java.lang.reflect.Field;
 import java.util.List;
@@ -25,7 +25,7 @@ public class SnackTest {
         snack1 = new Snack("fist snack", 10, "10g");
         snack2 = new Snack("second snack", 20, "20g");
     }
-    
+
     /**
      * Clear the list in class Snack after each test
      */
@@ -34,7 +34,7 @@ public class SnackTest {
         Field field = Snack.class.getDeclaredField("allSnacks");
         field.setAccessible(true);
         Object fieldValue = field.get(Snack.class);
-        if (fieldValue instanceof List){
+        if (fieldValue instanceof List) {
             ((List<?>) fieldValue).clear();
         }
     }
@@ -57,7 +57,7 @@ public class SnackTest {
         Assertions.assertTrue(snack1.equals(snack3));
         Assertions.assertEquals(snack1.hashCode(), snack3.hashCode());
     }
-    
+
     /**
      * Test equals method with two different snacks
      */
@@ -95,7 +95,7 @@ public class SnackTest {
         Assertions.assertFalse(snack1.equals(null));
         Assertions.assertNotEquals(0, snack1.hashCode());
     }
-    
+
     /**
      * Test equals method with different class
      */
@@ -138,7 +138,7 @@ public class SnackTest {
     public void testGetPrice() {
         Assertions.assertEquals(10, snack1.getPrice());
     }
-    
+
 
     /**
      * Test getAllSnacks method
@@ -148,7 +148,7 @@ public class SnackTest {
         List<Snack> allSnacks = Snack.getAllSnacks();
         Assertions.assertEquals(List.of(snack1, snack2), allSnacks);
     }
-    
+
     /**
      * Test searchProduct method
      */
@@ -157,16 +157,17 @@ public class SnackTest {
         Snack acutalSnack = Snack.searchSnack("fist snack");
         Assertions.assertEquals(snack1, acutalSnack);
     }
-    
+
     /**
      * Test searchSnack method with snack that does not exist
      */
     @Test
     public void testSearchSnackNotFound() {
-        Exception exception = Assertions.assertThrows(ExProductNotFound.class, () -> Snack.searchSnack("snack not exist"));
+        Exception exception = Assertions.assertThrows(ExProductNotFound.class,
+                () -> Snack.searchSnack("snack not exist"));
         Assertions.assertEquals("[Exception] Snack snack not exist not found", exception.getMessage());
     }
-    
+
     /**
      * Test toString method
      */
@@ -181,7 +182,7 @@ public class SnackTest {
      */
     @Test
     public void testFormattedToString() {
-        String expected = String.format("%-20s%2s%-5s%2s$%-4.1f%1s", "fist snack", " ", "10g", " ", 10.0," ");
+        String expected = String.format("%-20s%2s%-5s%2s$%-4.1f%1s", "fist snack", " ", "10g", " ", 10.0, " ");
         Assertions.assertEquals(expected, snack1.formattedToString());
     }
 }

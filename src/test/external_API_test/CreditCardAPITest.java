@@ -1,11 +1,11 @@
 package test.external_API_test;
 
-import release.externalAPI.CreditCardAPI;
-import release.externalAPI.CreditCardAPIFactory;
-import release.externalAPI.ExternalAPI;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import release.externalAPI.CreditCardAPI;
+import release.externalAPI.CreditCardAPIFactory;
+import release.externalAPI.ExternalAPI;
 
 import java.util.Random;
 
@@ -33,7 +33,7 @@ public class CreditCardAPITest {
     void testCreditCardAPIFactory() {
         ExternalAPI externalAPI = creditCardAPIFactory.getExternalAPI();
         Assertions.assertNotNull(externalAPI);
-        Assertions.assertTrue(externalAPI instanceof CreditCardAPI);
+        Assertions.assertInstanceOf(CreditCardAPI.class, externalAPI);
     }
 
     /**
@@ -43,7 +43,7 @@ public class CreditCardAPITest {
     void testCreditCardAPIFactory_Random() {
         ExternalAPI externalAPI = creditCardAPIFactory.getExternalAPI(random);
         Assertions.assertNotNull(externalAPI);
-        Assertions.assertTrue(externalAPI instanceof CreditCardAPI);
+        Assertions.assertInstanceOf(CreditCardAPI.class, externalAPI);
     }
 
     /**
@@ -56,7 +56,7 @@ public class CreditCardAPITest {
         // test when random is null, it should return CreditCardAPI object and can do payment without NullPointerException
         Assertions.assertDoesNotThrow(() -> externalAPI.doPayment(1));
         Assertions.assertNotNull(externalAPI);
-        Assertions.assertTrue(externalAPI instanceof CreditCardAPI);
+        Assertions.assertInstanceOf(CreditCardAPI.class, externalAPI);
     }
 
     /**

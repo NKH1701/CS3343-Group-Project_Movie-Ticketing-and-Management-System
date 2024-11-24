@@ -5,7 +5,6 @@ import release.exception.ExNoPaymentRecord;
 import release.payment.Payment;
 import release.product.MovieTicket;
 import release.product.Product;
-import release.product.ProductWithPortion;
 import release.user.Member;
 
 import java.util.ArrayList;

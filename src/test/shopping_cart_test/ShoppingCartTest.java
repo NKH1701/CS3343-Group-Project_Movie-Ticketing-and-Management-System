@@ -42,10 +42,7 @@ public class ShoppingCartTest {
     void setUp() throws ExInvalidSeatingPlan {
         testSnack = new Snack("snack1", 10, "100g");
         testDrink = new Drink("drink2", 20, "500ml");
-        Map<Product, Integer> productMap = Map.of(
-                testSnack, 1,
-                testDrink, 1
-        );
+        Map<Product, Integer> productMap = Map.of(testSnack, 1, testDrink, 1);
         testMovie1 = new Movie("movie1", "action", 123, 100, 100, "I", "English", "English");
         movieSession = new MovieSession(testMovie1, "10:00", "12:00", new House());
         movieTicket = new MovieTicket(testMovie1, movieSession, "A1");
@@ -101,6 +98,26 @@ public class ShoppingCartTest {
     void testGetMovieShoppingCart() {
         List<MovieTicket> actualMovieCart = shoppingCart.getMovieTicketCart();
         Assertions.assertEquals(movieTicketCart, actualMovieCart);
+    }
+
+    /**
+     * Test searchMovieTicket method of ShoppingCart class
+     */
+    @Test
+    void testSearchMovieTicket() throws ExProductNotFound {
+        MovieTicket actualMovieTicket = shoppingCart.searchMovieTicket(movieTicket);
+        Assertions.assertEquals(movieTicket, actualMovieTicket);
+    }
+
+    /**
+     * Test searchMovieTicket method of ShoppingCart class when the movie ticket does not exist
+     */
+    @Test
+    void testSearchMovieTicket_MovieTicketNotExists() {
+        MovieTicket movieTicketNotExists = new MovieTicket(testMovie1, movieSession, "A2");
+        Exception exception = Assertions.assertThrows(ExProductNotFound.class,
+                () -> shoppingCart.searchMovieTicket(movieTicketNotExists));
+        Assertions.assertEquals("[Exception] Movie ticket not found", exception.getMessage());
     }
 
     /**
@@ -198,8 +215,8 @@ public class ShoppingCartTest {
     void testRemoveProduct_ProductNotExists() {
         Product product = new Snack("snack3", 30, "200g");
         String massage = "[Exception] Product snack3 not found";
-        Exception exception = Assertions.assertThrows(
-                ExProductNotFound.class, () -> shoppingCart.removeFromProductCart(product, 1));
+        Exception exception = Assertions.assertThrows(ExProductNotFound.class,
+                () -> shoppingCart.removeFromProductCart(product, 1));
         Assertions.assertEquals(massage, exception.getMessage());
     }
 
@@ -250,18 +267,26 @@ public class ShoppingCartTest {
      */
     @Test
     void testFormattedToString() {
-        final int lineSeparator = 73;
-       String formattedMovieTicket = MovieTicket.formatMovieTicketList(movieTicketCart);
-        String snackTitle = String.format("\n%4s%-32s%-16s%-15s%-6s\n%s\n", " ", "Snacks/Drinks",
-                "Portion", "Quantity", "Price", "-".repeat(lineSeparator));
-        String formattedSnack = String.format("%2d) %-30s%2s%-16s%3d%12s$%-4.1f\n", 1, testSnack.getName(), " ",
-                (testSnack).getPortion(), 1, " ",
-                testSnack.getPrice());
-        String formattedDrink = String.format("%2d) %-30s%2s%-16s%3d%12s$%-4.1f\n%s\n", 2, testDrink.getName(),
-                " ", testDrink.getPortion(), 1, " ", (testDrink).getPrice(),
-                "-".repeat(lineSeparator));
-        String expected = formattedMovieTicket + snackTitle + formattedSnack + formattedDrink;
+        String formattedMovieTicket = MovieTicket.formatMovieTicketList(movieTicketCart);
+        String expected = formattedMovieTicket + getSnackString();
         Assertions.assertEquals(expected, shoppingCart.formattedToString());
+    }
+
+    /**
+     * Get the formatted string of the snack and drink
+     * This is the helper method for testFormattedToString method
+     *
+     * @return the formatted string of the snack and drink
+     */
+    private String getSnackString() {
+        final int lineSeparator = 73;
+        String snackTitle = String.format("\n%4s%-32s%-16s%-15s%-6s\n%s\n", " ", "Snacks/Drinks", "Portion", "Quantity",
+                "Price", "-".repeat(lineSeparator));
+        String formattedSnack = String.format("%2d) %-30s%2s%-16s%3d%12s$%-4.1f\n", 1, testSnack.getName(), " ",
+                (testSnack).getPortion(), 1, " ", testSnack.getPrice());
+        String formattedDrink = String.format("%2d) %-30s%2s%-16s%3d%12s$%-4.1f\n%s\n", 2, testDrink.getName(), " ",
+                testDrink.getPortion(), 1, " ", (testDrink).getPrice(), "-".repeat(lineSeparator));
+        return snackTitle + formattedSnack + formattedDrink;
     }
 
     /**

@@ -31,7 +31,7 @@ public class WeChatPayPaymentTest {
     @Test
     public void testWeChatPayPaymentFactory() {
         Payment payment = weChatPayPaymentFactory.createPaymentMethod();
-        Assertions.assertTrue(payment instanceof WeChatPayPayment);
+        Assertions.assertInstanceOf(WeChatPayPayment.class, payment);
     }
 
     /**
@@ -40,7 +40,7 @@ public class WeChatPayPaymentTest {
     @Test
     public void testWeChatPayPaymentFactory_ExternalAPI() {
         Payment payment = weChatPayPaymentFactory.createPaymentMethod(weChatPayAPIFactory.getExternalAPI());
-        Assertions.assertTrue(payment instanceof WeChatPayPayment);
+        Assertions.assertInstanceOf(WeChatPayPayment.class, payment);
     }
 
     /**
@@ -52,7 +52,7 @@ public class WeChatPayPaymentTest {
         Payment payment = weChatPayPaymentFactory.createPaymentMethod(null);
         // Test if there is no NullPointerException
         Assertions.assertDoesNotThrow(() -> payment.doPayment(1));
-        Assertions.assertTrue(payment instanceof WeChatPayPayment);
+        Assertions.assertInstanceOf(WeChatPayPayment.class, payment);
     }
 
     /**
@@ -64,7 +64,7 @@ public class WeChatPayPaymentTest {
         Payment payment = weChatPayPaymentFactory.createPaymentMethod(
                 weChatPayAPIFactory.getExternalAPI(new Random(10)));
         Assertions.assertTrue(payment.doPayment(100));
-        Assertions.assertEquals(payment.getPaymentStatus(), PaymentStatus.SUCCESS);
+        Assertions.assertEquals(PaymentStatus.SUCCESS, payment.getPaymentStatus());
     }
 
     /**
@@ -77,7 +77,7 @@ public class WeChatPayPaymentTest {
         Payment payment = weChatPayPaymentFactory.createPaymentMethod(
                 weChatPayAPIFactory.getExternalAPI(new Random(10)));
         Assertions.assertFalse(payment.doPayment(15));
-        Assertions.assertEquals(payment.getPaymentStatus(), PaymentStatus.FAIL);
+        Assertions.assertEquals(PaymentStatus.FAIL, payment.getPaymentStatus());
     }
 
     /**
@@ -87,7 +87,7 @@ public class WeChatPayPaymentTest {
     @Test
     public void testGetPaymentType() {
         Payment payment = weChatPayPaymentFactory.createPaymentMethod();
-        Assertions.assertEquals(payment.getPaymentType(), PaymentType.WECHATPAY);
+        Assertions.assertEquals(PaymentType.WECHATPAY, payment.getPaymentType());
     }
 
     /**
@@ -97,6 +97,6 @@ public class WeChatPayPaymentTest {
     @Test
     public void testGetPaymentStatus() {
         Payment payment = weChatPayPaymentFactory.createPaymentMethod();
-        Assertions.assertEquals(payment.getPaymentStatus(), PaymentStatus.NOT_PROCEED);
+        Assertions.assertEquals(PaymentStatus.NOT_PROCEED, payment.getPaymentStatus());
     }
 }

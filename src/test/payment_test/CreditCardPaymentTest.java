@@ -1,15 +1,11 @@
 package test.payment_test;
 
-import release.externalAPI.CreditCardAPIFactory;
-import release.externalAPI.ExternalAPI;
-import release.payment.CreditCardPayment;
-import release.payment.CreditCardPaymentFactory;
-import release.payment.Payment;
-import release.payment.PaymentStatus;
-import release.payment.PaymentType;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import release.externalAPI.CreditCardAPIFactory;
+import release.externalAPI.ExternalAPI;
+import release.payment.*;
 
 import java.util.Random;
 
@@ -20,7 +16,7 @@ import java.util.Random;
 public class CreditCardPaymentTest {
     CreditCardPaymentFactory creditCardPaymentFactory;
     CreditCardAPIFactory creditCardAPIFactory;
-    
+
     /**
      * Set up the test environment
      */
@@ -29,16 +25,16 @@ public class CreditCardPaymentTest {
         creditCardPaymentFactory = new CreditCardPaymentFactory();
         creditCardAPIFactory = new CreditCardAPIFactory();
     }
-    
+
     /**
      * Test if the CreditCardPaymentFactory can create an instance of CreditCardPayment
      */
     @Test
     public void testCreditCardPaymentFactory() {
         Payment payment = creditCardPaymentFactory.createPaymentMethod();
-        Assertions.assertTrue(payment instanceof CreditCardPayment);
+        Assertions.assertInstanceOf(CreditCardPayment.class, payment);
     }
-    
+
     /**
      * Test if the CreditCardPaymentFactory can create an instance of CreditCardPayment with an ExternalAPI object
      */
@@ -46,9 +42,9 @@ public class CreditCardPaymentTest {
     public void testCreditCardPaymentFactory_ExternalAPI() {
         ExternalAPI creditCardAPI = creditCardAPIFactory.getExternalAPI();
         Payment payment = creditCardPaymentFactory.createPaymentMethod(creditCardAPI);
-        Assertions.assertTrue(payment instanceof CreditCardPayment);
+        Assertions.assertInstanceOf(CreditCardPayment.class, payment);
     }
-    
+
     /**
      * Test if the CreditCardPaymentFactory can create an instance of CreditCardPayment with a null ExternalAPI object<br>
      * The method should not throw NullPointerException
@@ -58,9 +54,9 @@ public class CreditCardPaymentTest {
         Payment payment = creditCardPaymentFactory.createPaymentMethod(null);
         // Test if there is no NullPointerException
         Assertions.assertDoesNotThrow(() -> payment.doPayment(1));
-        Assertions.assertTrue(payment instanceof CreditCardPayment);
+        Assertions.assertInstanceOf(CreditCardPayment.class, payment);
     }
-    
+
     /**
      * Test if the CreditCardPayment can do payment.<br>
      * The payment should be successful, and the payment status should be SUCCESS.
@@ -70,9 +66,9 @@ public class CreditCardPaymentTest {
         ExternalAPI creditCardAPI = creditCardAPIFactory.getExternalAPI(new Random(10));
         Payment payment = creditCardPaymentFactory.createPaymentMethod(creditCardAPI);
         Assertions.assertTrue(payment.doPayment(100));
-        Assertions.assertEquals(payment.getPaymentStatus(), PaymentStatus.SUCCESS);
+        Assertions.assertEquals(PaymentStatus.SUCCESS, payment.getPaymentStatus());
     }
-    
+
     /**
      * Test if the CreditCardPayment can fail to do the payment.<br>
      * The payment should fail, and the payment status should be FAIL.
@@ -82,7 +78,7 @@ public class CreditCardPaymentTest {
         ExternalAPI creditCardAPI = creditCardAPIFactory.getExternalAPI(new Random(10));
         Payment payment = creditCardPaymentFactory.createPaymentMethod(creditCardAPI);
         Assertions.assertFalse(payment.doPayment(15));
-        Assertions.assertEquals(payment.getPaymentStatus(), PaymentStatus.FAIL);
+        Assertions.assertEquals(PaymentStatus.FAIL, payment.getPaymentStatus());
     }
 
     /**
@@ -92,9 +88,9 @@ public class CreditCardPaymentTest {
     @Test
     public void testGetPaymentType() {
         Payment payment = creditCardPaymentFactory.createPaymentMethod();
-        Assertions.assertEquals(payment.getPaymentType(), PaymentType.CREDIT_CARD);
+        Assertions.assertEquals(PaymentType.CREDIT_CARD, payment.getPaymentType());
     }
-    
+
     /**
      * Test the getPaymentStatus method in CreditCardPayment class<br>
      * The method should return PaymentStatus.NOT_PROCEED
@@ -102,6 +98,6 @@ public class CreditCardPaymentTest {
     @Test
     public void testGetPaymentStatus() {
         Payment payment = creditCardPaymentFactory.createPaymentMethod();
-        Assertions.assertEquals(payment.getPaymentStatus(), PaymentStatus.NOT_PROCEED);
+        Assertions.assertEquals(PaymentStatus.NOT_PROCEED, payment.getPaymentStatus());
     }
 }

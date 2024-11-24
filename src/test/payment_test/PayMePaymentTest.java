@@ -1,10 +1,10 @@
 package test.payment_test;
 
-import release.externalAPI.PayMeAPIFactory;
-import release.payment.*;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import release.externalAPI.PayMeAPIFactory;
+import release.payment.*;
 
 import java.util.Random;
 
@@ -15,7 +15,7 @@ import java.util.Random;
 public class PayMePaymentTest {
     PayMePaymentFactory payMePaymentFactory;
     PayMeAPIFactory payMeAPIFactory;
-    
+
     /**
      * Set up the test environment
      */
@@ -24,25 +24,25 @@ public class PayMePaymentTest {
         payMePaymentFactory = new PayMePaymentFactory();
         payMeAPIFactory = new PayMeAPIFactory();
     }
-    
+
     /**
      * Test if the PayMePaymentFactory can create an instance of PayMePayment
      */
     @Test
     public void testPayMePaymentFactory() {
         Payment payment = payMePaymentFactory.createPaymentMethod();
-        Assertions.assertTrue(payment instanceof PayMePayment);
+        Assertions.assertInstanceOf(PayMePayment.class, payment);
     }
-    
+
     /**
      * Test if the PayMePaymentFactory can create an instance of PayMePayment with an ExternalAPI object
      */
     @Test
     public void testPayMePaymentFactory_ExternalAPI() {
         Payment payment = payMePaymentFactory.createPaymentMethod(payMeAPIFactory.getExternalAPI());
-        Assertions.assertTrue(payment instanceof PayMePayment);
+        Assertions.assertInstanceOf(PayMePayment.class, payment);
     }
-    
+
     /**
      * Test if the PayMePaymentFactory can create an instance of PayMePayment with a null ExternalAPI object<br>
      * The method should not throw NullPointerException
@@ -52,9 +52,9 @@ public class PayMePaymentTest {
         Payment payment = payMePaymentFactory.createPaymentMethod(null);
         // Test if there is no NullPointerException
         Assertions.assertDoesNotThrow(() -> payment.doPayment(1));
-        Assertions.assertTrue(payment instanceof PayMePayment);
+        Assertions.assertInstanceOf(PayMePayment.class, payment);
     }
-    
+
     /**
      * Test the doPayment method of PayMePayment class<br>
      * The payment should be successful, and the payment status should be SUCCESS
@@ -64,9 +64,9 @@ public class PayMePaymentTest {
         Payment payment = payMePaymentFactory.createPaymentMethod(
                 payMeAPIFactory.getExternalAPI(new Random(10)));
         Assertions.assertTrue(payment.doPayment(100));
-        Assertions.assertEquals(payment.getPaymentStatus(), PaymentStatus.SUCCESS);
+        Assertions.assertEquals(PaymentStatus.SUCCESS, payment.getPaymentStatus());
     }
-    
+
     /**
      * Test the doPayment method of PayMePayment class with a false payment<br>
      * The payment should fail, and the payment status should be FAIL
@@ -76,9 +76,9 @@ public class PayMePaymentTest {
         Payment payment = payMePaymentFactory.createPaymentMethod(
                 payMeAPIFactory.getExternalAPI(new Random(10)));
         Assertions.assertFalse(payment.doPayment(15));
-        Assertions.assertEquals(payment.getPaymentStatus(), PaymentStatus.FAIL);
+        Assertions.assertEquals(PaymentStatus.FAIL, payment.getPaymentStatus());
     }
-    
+
     /**
      * Test if the PayMePayment can get the payment type<br>
      * The payment type should be PAYME
@@ -86,9 +86,9 @@ public class PayMePaymentTest {
     @Test
     public void testGetPaymentType() {
         Payment payment = payMePaymentFactory.createPaymentMethod();
-        Assertions.assertEquals(payment.getPaymentType(), PaymentType.PAYME);
+        Assertions.assertEquals(PaymentType.PAYME, payment.getPaymentType());
     }
-    
+
     /**
      * Test if the PayMePayment can get the payment status<br>
      * The payment status should be NOT_PROCEED
@@ -96,8 +96,8 @@ public class PayMePaymentTest {
     @Test
     public void testGetPaymentStatus() {
         Payment payment = payMePaymentFactory.createPaymentMethod();
-        Assertions.assertEquals(payment.getPaymentStatus(), PaymentStatus.NOT_PROCEED);
+        Assertions.assertEquals(PaymentStatus.NOT_PROCEED, payment.getPaymentStatus());
     }
-    
+
 }
 
