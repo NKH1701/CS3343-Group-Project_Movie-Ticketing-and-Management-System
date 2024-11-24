@@ -45,7 +45,7 @@ public interface Product {
                 } else {
                     results.append(String.format("%-16s", "N/A"));
                 }
-                results.append(String.format("%3d%12s", entry.getValue(), " "))
+                results.append(String.format("%5d%10s", entry.getValue(), " "))
                         .append(String.format("$%-4.1f", product.getPrice())).append("\n");
             }
             results.append("-".repeat(lineSeparator)).append("\n");
