@@ -85,6 +85,34 @@ public class MovieServiceTest {
             movieService.searchScheduledMovies("Hello World");
         });
     }
+    
+    @Test
+    public void testSearchMoviesAdmin() throws ExInvalidSearch {
+    	Movie movie = new Movie("Inception", "Sci-Fi", 148, 10.0, 9.5, "IIA", "English", "English");
+        Movie movie2 = new Movie("Inception 2", "Sci-Fi", 148, 10.0, 9.5, "IIA", "English", "English");
+        db.addMovie(movie);
+        db.addMovie(movie2);
+        
+        Map<Integer, Movie> searchResults = movieService.searchMoviesAdmin("Inception 2");
+        assertEquals(1, searchResults.size());
+        assertTrue(searchResults.containsValue(movie2));
+
+        Map<Integer, Movie> searchResults2 = movieService.searchMoviesAdmin("Inception");
+        assertEquals(2, searchResults2.size());
+        assertTrue(searchResults2.containsValue(movie) && searchResults2.containsValue(movie2));
+    }
+    
+    @Test
+    public void testSearchMoviesAdmin_NoMatch() throws ExInvalidSeatingPlan {
+    	Movie movie = new Movie("Inception", "Sci-Fi", 148, 10.0, 9.5, "IIA", "English", "English");
+        Movie movie2 = new Movie("Inception 2", "Sci-Fi", 148, 10.0, 9.5, "IIA", "English", "English");
+        db.addMovie(movie);
+        db.addMovie(movie2);
+      
+        assertThrows(ExInvalidSearch.class, () -> {
+            movieService.searchMoviesAdmin("Hello World");
+        });
+    }
 
     @Test
     public void testGetSelectedMovieSession() throws ExInvalidOption, ExInvalidSeatingPlan {
