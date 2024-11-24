@@ -5,9 +5,11 @@ import release.exception.ExInvalidMovieTicket;
 import release.exception.ExProductNotFound;
 import release.product.MovieTicket;
 import release.product.Product;
-import release.product.ProductWithPortion;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * ShoppingCart class that contains all products in the shopping cart
@@ -26,14 +28,14 @@ public class ShoppingCart {
 
     /**
      * Constructor for ShoppingCart class,
-     * which the Cart is initialized with the hashmap of products and list of movie ticket passed into the constructor
+     * which the Cart is initialized by cloning the hashmap of products and list of movie ticket passed into the constructor
      *
      * @param productCart     : products in the shopping cart
      * @param movieTicketCart : movies tickets in the shopping cart
      */
     public ShoppingCart(Map<Product, Integer> productCart, List<MovieTicket> movieTicketCart) {
-        this.productCart = productCart;
-        this.movieTicketCart = movieTicketCart;
+        this.productCart = new HashMap<>(productCart);
+        this.movieTicketCart = new ArrayList<>(movieTicketCart);
     }
 
     /**
@@ -183,43 +185,13 @@ public class ShoppingCart {
         return totalPrice;
     }
 
-    public String formattedToString(){
-        final int lineSeparator = 73;
-        StringBuilder results = new StringBuilder();
-        if (!movieTicketCart.isEmpty()){
-            int ticketCnt = 0;
-            // Movie    House       Session    Seat     Price
-            results.append(String.format("%4s%-32s", " ", "Movie Name"))
-                    .append(String.format("%-8s", "House")).append(String.format("%-8s", "Start"))
-                    .append(String.format("%-8s", "End")).append(String.format("%-7s", "Seat"))
-                    .append(String.format("%-6s", "Price")).append("\n").append("-".repeat(lineSeparator)).append("\n");
-            for (MovieTicket item: movieTicketCart){
-                results.append(String.format("%2d) ", ++ticketCnt))
-                        .append(String.format("%-30s%2s", item.getMovie().getName(), " "))
-                        .append(String.format("%2s%-6d", " ", item.getMovieSession().getHouse().getHouseNumber()))
-                        .append(String.format("%-8s", item.getMovieSession().getStartTime()))
-                        .append(String.format("%-8s", item.getMovieSession().getEndTime()))
-                        .append(String.format("%-7s", item.getSeat()))
-                        .append(String.format("$%-5.1f", item.getPrice())).append("\n");
-            }
-            results.append("-".repeat(lineSeparator)).append("\n");
-        }
-        if(!productCart.isEmpty()){
-            int productCnt = 0;
-            results.append("\n").append(String.format("%4s%-32s", " ", "Snacks/Drinks"))
-                    .append(String.format("%-16s", "Portion"))
-                    .append(String.format("%-15s", "Quantity")).append(String.format("%-6s", "Price"))
-                    .append("\n").append("-".repeat(lineSeparator)).append("\n");
-            for (Map.Entry<Product, Integer> entry: productCart.entrySet()){
-                Product product = entry.getKey();
-                results.append(String.format("%2d) ", ++productCnt))
-                        .append(String.format("%-30s%2s", product.getName(), " "))
-                        .append(String.format("%-16s", ((ProductWithPortion)product).getPortion()))
-                        .append(String.format("%3d%12s", entry.getValue(), " "))
-                        .append(String.format("$%-4.1f", product.getPrice())).append("\n");
-            }
-            results.append("-".repeat(lineSeparator)).append("\n");
-        }
-        return results.toString();
+    /**
+     * Format the shopping cart to a string
+     *
+     * @return the formatted string of the shopping cart
+     */
+    public String formattedToString() {
+        return MovieTicket.formatMovieTicketList(movieTicketCart) +
+                Product.formatProductMap(productCart);
     }
 }
