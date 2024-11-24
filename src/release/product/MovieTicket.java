@@ -4,6 +4,7 @@ package release.product;
 import release.movie.Movie;
 import release.movie.MovieSession;
 
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -108,5 +109,38 @@ public class MovieTicket implements Product {
         return Objects.hash(movie, movieSession, seat);
     }
 
+    /**
+     * format the movie ticket list
+     *
+     * @param movieTicketList list of movie tickets
+     * @return formatted string of movie ticket list, empty string if the list is empty or null
+     */
+    public static String formatMovieTicketList(List<MovieTicket> movieTicketList) {
+        final int lineSeparator = 73;
+        StringBuilder movieTicketString = new StringBuilder();
+        if (movieTicketList != null && !movieTicketList.isEmpty()) {
+            /*
+                Movie Name                      House   Start   End     Seat   Price 
+            -------------------------------------------------------------------------
+             */
+            movieTicketString.append(String.format("%4s%-32s", " ", "Movie Name"))
+                    .append(String.format("%-8s", "House")).append(String.format("%-8s", "Start"))
+                    .append(String.format("%-8s", "End")).append(String.format("%-7s", "Seat"))
+                    .append(String.format("%-6s", "Price")).append("\n").append("-".repeat(lineSeparator))
+                    .append("\n");
+            for (int i = 0; i < movieTicketList.size(); i++) {
+                MovieTicket item = movieTicketList.get(i);
+                movieTicketString.append(String.format("%2d) ", i + 1))
+                        .append(String.format("%-30s%2s", item.getMovie().getName(), " "))
+                        .append(String.format("%2s%-6d", " ", item.getMovieSession().getHouse().getHouseNumber()))
+                        .append(String.format("%-8s", item.getMovieSession().getStartTime()))
+                        .append(String.format("%-8s", item.getMovieSession().getEndTime()))
+                        .append(String.format("%-7s", item.getSeat()))
+                        .append(String.format("$%-5.1f", item.getPrice())).append("\n");
+            }
+            movieTicketString.append("-".repeat(lineSeparator)).append("\n");
+        }
+        return movieTicketString.toString();
+    }
 
 }

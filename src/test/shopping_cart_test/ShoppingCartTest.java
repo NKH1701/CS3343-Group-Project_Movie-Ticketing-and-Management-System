@@ -251,14 +251,7 @@ public class ShoppingCartTest {
     @Test
     void testFormattedToString() {
         final int lineSeparator = 73;
-        String expected = String.format("%4s%-32s%-8s%-8s%-8s%-7s%-6s\n%s\n", " ", "Movie Name", "House", "Start",
-                "End", "Seat",
-                "Price", "-".repeat(lineSeparator));
-        String formattedMovieTicket = String.format("%2d) %-30s%2s%2s%-6d%-8s%-8s%-7s$%-5.1f\n%s\n", 1,
-                testMovie1.getName(), " ",
-                " ", movieSession.getHouse().getHouseNumber(), movieSession.getStartTime(), movieSession.getEndTime(),
-                movieTicket.getSeat(),
-                movieTicket.getPrice(), "-".repeat(lineSeparator));
+       String formattedMovieTicket = MovieTicket.formatMovieTicketList(movieTicketCart);
         String snackTitle = String.format("\n%4s%-32s%-16s%-15s%-6s\n%s\n", " ", "Snacks/Drinks",
                 "Portion", "Quantity", "Price", "-".repeat(lineSeparator));
         String formattedSnack = String.format("%2d) %-30s%2s%-16s%3d%12s$%-4.1f\n", 1, testSnack.getName(), " ",
@@ -267,7 +260,7 @@ public class ShoppingCartTest {
         String formattedDrink = String.format("%2d) %-30s%2s%-16s%3d%12s$%-4.1f\n%s\n", 2, testDrink.getName(),
                 " ", testDrink.getPortion(), 1, " ", (testDrink).getPrice(),
                 "-".repeat(lineSeparator));
-        expected += formattedMovieTicket + snackTitle + formattedSnack + formattedDrink;
+        String expected = formattedMovieTicket + snackTitle + formattedSnack + formattedDrink;
         Assertions.assertEquals(expected, shoppingCart.formattedToString());
     }
 

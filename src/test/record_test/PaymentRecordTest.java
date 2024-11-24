@@ -68,23 +68,16 @@ public class PaymentRecordTest {
         PaymentRecord paymentRecord = new PaymentRecord(testMember, testProductList, testMovieTicketList, testPayment);
         List<PaymentRecord> paymentRecords = new ArrayList<>(List.of(paymentRecord));
         Assertions.assertDoesNotThrow(() -> PaymentRecord.showAllPaymentRecords(paymentRecords));
-//        String actual = PaymentRecord.showAllPaymentRecords(paymentRecords);
         final int lineSeparator = 73;
         String expected = String.format("Payment Record 1 (OCTOPUS):%n");
-        String movieTitle = String.format("%4s%-32s%-8s%-8s%-8s%-7s%-6s\n%s\n", " ", "Movie Name", "House", "Start",
-                "End", "Seat", "Price", "-".repeat(lineSeparator));
-        String formattedMovieTicket = String.format("%2d) %-30s%2s%2s%-6d%-8s%-8s%-7s$%-5.1f\n%s\n", 1,
-                testMovie.getName(), " ", " ", testMovieSession.getHouse().getHouseNumber(),
-                testMovieSession.getStartTime(), testMovieSession.getEndTime(), testMovieTicket.getSeat(),
-                testMovieTicket.getPrice(), "-".repeat(lineSeparator));
+        String formattedMovieTicket = MovieTicket.formatMovieTicketList(testMovieTicketList);
         String snackTitle = String.format("\n%4s%-32s%-16s%-15s%-6s\n%s\n", " ", "Snacks/Drinks", "Portion", "Quantity",
                 "Price", "-".repeat(lineSeparator));
         String formattedSnack = String.format("%2d) %-30s%2s%-16s%3d%12s$%-4.1f\n", 1, testSnack.getName(), " ",
                 (testSnack).getPortion(), 1, " ", testSnack.getPrice());
-        expected += movieTitle + formattedMovieTicket + snackTitle + formattedSnack + "-".repeat(
+        expected += formattedMovieTicket + snackTitle + formattedSnack + "-".repeat(
                 lineSeparator) + "\n" + "~".repeat(lineSeparator) + "\n\n";
         Assertions.assertEquals(expected, PaymentRecord.showAllPaymentRecords(paymentRecords));
-
     }
 
     @Test

@@ -183,43 +183,13 @@ public class ShoppingCart {
         return totalPrice;
     }
 
+    /**
+     * Format the shopping cart to a string
+     *
+     * @return the formatted string of the shopping cart
+     */
     public String formattedToString(){
-        final int lineSeparator = 73;
-        StringBuilder results = new StringBuilder();
-        if (!movieTicketCart.isEmpty()){
-            int ticketCnt = 0;
-            // Movie    House       Session    Seat     Price
-            results.append(String.format("%4s%-32s", " ", "Movie Name"))
-                    .append(String.format("%-8s", "House")).append(String.format("%-8s", "Start"))
-                    .append(String.format("%-8s", "End")).append(String.format("%-7s", "Seat"))
-                    .append(String.format("%-6s", "Price")).append("\n").append("-".repeat(lineSeparator)).append("\n");
-            for (MovieTicket item: movieTicketCart){
-                results.append(String.format("%2d) ", ++ticketCnt))
-                        .append(String.format("%-30s%2s", item.getMovie().getName(), " "))
-                        .append(String.format("%2s%-6d", " ", item.getMovieSession().getHouse().getHouseNumber()))
-                        .append(String.format("%-8s", item.getMovieSession().getStartTime()))
-                        .append(String.format("%-8s", item.getMovieSession().getEndTime()))
-                        .append(String.format("%-7s", item.getSeat()))
-                        .append(String.format("$%-5.1f", item.getPrice())).append("\n");
-            }
-            results.append("-".repeat(lineSeparator)).append("\n");
-        }
-        if(!productCart.isEmpty()){
-            int productCnt = 0;
-            results.append("\n").append(String.format("%4s%-32s", " ", "Snacks/Drinks"))
-                    .append(String.format("%-16s", "Portion"))
-                    .append(String.format("%-15s", "Quantity")).append(String.format("%-6s", "Price"))
-                    .append("\n").append("-".repeat(lineSeparator)).append("\n");
-            for (Map.Entry<Product, Integer> entry: productCart.entrySet()){
-                Product product = entry.getKey();
-                results.append(String.format("%2d) ", ++productCnt))
-                        .append(String.format("%-30s%2s", product.getName(), " "))
-                        .append(String.format("%-16s", ((ProductWithPortion)product).getPortion()))
-                        .append(String.format("%3d%12s", entry.getValue(), " "))
-                        .append(String.format("$%-4.1f", product.getPrice())).append("\n");
-            }
-            results.append("-".repeat(lineSeparator)).append("\n");
-        }
-        return results.toString();
+        return MovieTicket.formatMovieTicketList(movieTicketCart) +
+                Product.formatProductMap(productCart);
     }
 }

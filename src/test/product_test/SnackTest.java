@@ -175,8 +175,11 @@ public class SnackTest {
         String expected = "Name: fist snack, Portion: 10g, Price: 10.0";
         Assertions.assertEquals(expected, snack1.toString());
     }
-    
-@Test
+
+    /**
+     * Test formattedToString method
+     */
+    @Test
     public void testFormattedToString() {
         String expected = String.format("%-20s%2s%-5s%2s$%-4.1f%1s", "fist snack", " ", "10g", " ", 10.0," ");
         Assertions.assertEquals(expected, snack1.formattedToString());

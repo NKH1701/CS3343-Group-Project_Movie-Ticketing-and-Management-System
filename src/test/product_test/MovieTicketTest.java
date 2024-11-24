@@ -9,6 +9,8 @@ import release.movie.Movie;
 import release.movie.MovieSession;
 import release.product.MovieTicket;
 
+import java.util.List;
+
 /**
  * MovieTicketTest class<br>
  * It is used to test the MovieTicket class
@@ -162,5 +164,39 @@ public class MovieTicketTest {
     void testEquals_differentSeat() {
         MovieTicket movieTicket1 = new MovieTicket(movie, movieSession, "A2");
         Assertions.assertFalse(movieTicket.equals(movieTicket1));
+    }
+
+    /**
+     * The test for the formatMovieTicket method<br>
+     */
+    @Test
+    void testFormatMovieTicketList() {
+        final int lineSeparator = 73;
+        String movieTitle = String.format("%4s%-32s%-8s%-8s%-8s%-7s%-6s\n%s\n", " ", "Movie Name", "House", "Start",
+                "End", "Seat", "Price", "-".repeat(lineSeparator));
+        String formattedMovieTicket = String.format("%2d) %-30s%2s%2s%-6d%-8s%-8s%-7s$%-5.1f\n%s\n", 1,
+                movie.getName(), " ", " ", movieSession.getHouse().getHouseNumber(),
+                movieSession.getStartTime(), movieSession.getEndTime(), movieTicket.getSeat(),
+                movieTicket.getPrice(), "-".repeat(lineSeparator));
+        String expected = movieTitle + formattedMovieTicket;
+        Assertions.assertEquals(expected, MovieTicket.formatMovieTicketList(List.of(movieTicket)));
+    }
+    
+    /**
+     * The test for the formatMovieTicket method<br>
+     * Check if the method returns an empty string when the list is empty
+     */
+    @Test
+    void testFormatMovieTicketList_Empty() {
+        Assertions.assertEquals("", MovieTicket.formatMovieTicketList(List.of()));
+    }
+    
+    /**
+     * The test for the formatMovieTicket method<br>
+     * Check if the method returns an empty string when the list is null
+     */
+    @Test
+    void testFormatMovieTicketList_Null() {
+        Assertions.assertEquals("", MovieTicket.formatMovieTicketList(null));
     }
 }

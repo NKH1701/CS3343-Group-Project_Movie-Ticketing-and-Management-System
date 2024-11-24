@@ -44,6 +44,13 @@ public record PaymentRecord(Member user, Map<Product, Integer> productList, List
     }
 
 
+    /**
+     * Format the payment record to a string
+     *
+     * @param paymentRecords list of payment records to format
+     * @return the formatted string of the payment record
+     * @throws ExNoPaymentRecord if there is no payment record
+     */
     public static String showAllPaymentRecords(List<PaymentRecord> paymentRecords) throws ExNoPaymentRecord {
         if (paymentRecords.isEmpty()) {
             throw new ExNoPaymentRecord();
@@ -55,41 +62,9 @@ public record PaymentRecord(Member user, Map<Product, Integer> productList, List
             results.append(String.format("Payment Record %d (%s):%n", ++recordCnt,
                     paymentRecord.payment().getPaymentType().name()));
             List<MovieTicket> movieTickets = paymentRecord.movieTicketList();
-            if (!movieTickets.isEmpty()) {
-                int ticketCnt = 0;
-                results.append(String.format("%4s%-32s", " ", "Movie Name"))
-                        .append(String.format("%-8s", "House")).append(String.format("%-8s", "Start"))
-                        .append(String.format("%-8s", "End")).append(String.format("%-7s", "Seat"))
-                        .append(String.format("%-6s", "Price")).append("\n").append("-".repeat(lineSeparator))
-                        .append("\n");
-                for (MovieTicket item : movieTickets) {
-                    results.append(String.format("%2d) ", ++ticketCnt))
-                            .append(String.format("%-30s%2s", item.getMovie().getName(), " "))
-                            .append(String.format("%2s%-6d", " ", item.getMovieSession().getHouse().getHouseNumber()))
-                            .append(String.format("%-8s", item.getMovieSession().getStartTime()))
-                            .append(String.format("%-8s", item.getMovieSession().getEndTime()))
-                            .append(String.format("%-7s", item.getSeat()))
-                            .append(String.format("$%-5.1f", item.getPrice())).append("\n");
-                }
-                results.append("-".repeat(lineSeparator)).append("\n");
-            }
+            results.append(MovieTicket.formatMovieTicketList(movieTickets));
             Map<Product, Integer> products = paymentRecord.productList();
-            if (!products.isEmpty()) {
-                int productCnt = 0;
-                results.append("\n").append(String.format("%4s%-32s", " ", "Snacks/Drinks"))
-                        .append(String.format("%-16s", "Portion"))
-                        .append(String.format("%-15s", "Quantity")).append(String.format("%-6s", "Price"))
-                        .append("\n").append("-".repeat(lineSeparator)).append("\n");
-                for (Map.Entry<Product, Integer> entry : products.entrySet()) {
-                    Product product = entry.getKey();
-                    results.append(String.format("%2d) ", ++productCnt))
-                            .append(String.format("%-30s%2s", product.getName(), " "))
-                            .append(String.format("%-16s", ((ProductWithPortion) product).getPortion()))
-                            .append(String.format("%3d%12s", entry.getValue(), " "))
-                            .append(String.format("$%-4.1f", product.getPrice())).append("\n");
-                }
-                results.append("-".repeat(lineSeparator)).append("\n");
-            }
+            results.append(Product.formatProductMap(products));
             results.append("~".repeat(lineSeparator)).append("\n\n");
         }
         return results.toString();
